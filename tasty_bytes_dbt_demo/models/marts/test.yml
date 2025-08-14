@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: model1
+    columns:
+{% for column in generate_dynamic_tests() %}
+      - name: {{ column.name }}
+        tests:
+{% for test in column.tests %}
+          - {{ test | tojson }}
+{% endfor %}
+{% endfor %}

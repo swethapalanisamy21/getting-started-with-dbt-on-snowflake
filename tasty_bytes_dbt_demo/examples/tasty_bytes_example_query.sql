@@ -20,3 +20,5 @@ JOIN tb_101.raw.order_header oh
 ON cl.customer_id = oh.customer_id
 GROUP BY cl.customer_id, cl.city, cl.country, cl.first_name,
 cl.last_name, cl.phone_number, cl.e_mail;
+
+execute dbt project from workspace USER$.PUBLIC."dbt-on-snowflake" project_root='tasty_bytes_dbt_demo' args='compile --select raw_pos_country.sql  --target dev '>> examples/output.sql
