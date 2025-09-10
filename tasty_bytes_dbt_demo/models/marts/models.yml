@@ -1,0 +1,103 @@
+version: 2
+
+models:
+  - name: orders
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: ORDER_ID
+        data_type: NUMBER(38,0)
+
+      - name: TRUCK_ID
+        data_type: NUMBER(38,0)
+
+      - name: ORDER_TS
+        data_type: TIMESTAMP_NTZ(9)
+
+      - name: ORDER_DETAIL_ID
+        data_type: NUMBER(38,0)
+
+      - name: LINE_NUMBER
+        data_type: NUMBER(38,0)
+
+      - name: TRUCK_BRAND_NAME
+        data_type: VARCHAR(16777216)
+
+      - name: MENU_TYPE
+        data_type: VARCHAR(16777216)
+
+      - name: PRIMARY_CITY
+        data_type: VARCHAR(16777216)
+
+      - name: REGION
+        data_type: VARCHAR(16777216)
+
+      - name: COUNTRY
+        data_type: VARCHAR(16777216)
+
+      - name: FRANCHISE_FLAG
+        data_type: NUMBER(38,0)
+
+      - name: FRANCHISE_ID
+        data_type: NUMBER(38,0)
+
+      - name: FRANCHISEE_FIRST_NAME
+        data_type: VARCHAR(16777216)
+
+      - name: FRANCHISEE_LAST_NAME
+        data_type: VARCHAR(16777216)
+
+      - name: LOCATION_ID
+        data_type: NUMBER(19,0)
+
+      - name: CUSTOMER_ID
+        data_type: NUMBER(38,0)
+
+      - name: FIRST_NAME
+        data_type: VARCHAR(16777216)
+
+      - name: LAST_NAME
+        data_type: VARCHAR(16777216)
+
+      - name: E_MAIL
+        data_type: VARCHAR(16777216)
+
+      - name: PHONE_NUMBER
+        data_type: VARCHAR(16777216)
+
+      - name: CHILDREN_COUNT
+        data_type: VARCHAR(16777216)
+
+      - name: GENDER
+        data_type: VARCHAR(16777216)
+
+      - name: MARITAL_STATUS
+        data_type: VARCHAR(16777216)
+
+      - name: MENU_ITEM_ID
+        data_type: NUMBER(38,0)
+
+      - name: MENU_ITEM_NAME
+        data_type: VARCHAR(16777216)
+
+      - name: QUANTITY
+        data_type: NUMBER(5,0)
+
+      - name: UNIT_PRICE
+        data_type: NUMBER(38,4)
+
+      - name: PRICE
+        data_type: NUMBER(38,4)
+
+      - name: ORDER_AMOUNT
+        data_type: NUMBER(38,4)
+
+      - name: ORDER_TAX_AMOUNT
+        data_type: VARCHAR(16777216)
+
+      - name: ORDER_DISCOUNT_AMOUNT
+        data_type: VARCHAR(16777216)
+
+      - name: ORDER_TOTAL
+        data_type: NUMBER(38,4)

@@ -1,0 +1,74 @@
+version: 2
+sources:
+  - name: raw
+    description: ''
+    database: tasty_bytes_dbt_db
+    schema: RAW
+    tables:
+      - name: COUNTRY
+        columns:
+          - name: COUNTRY_ID
+            description: ''
+            data_tests:
+              - not_null
+              - dbt_utils.accepted_range:
+                    min_value: 1
+                    max_value: 1000
+      - name: CUSTOMER_LOYALTY
+        columns:
+          - name: GENDER
+            description: ''
+            data_tests:
+              - accepted_values:
+                    values: ['Male','Female','Undisclosed']
+      - name: LOCATION
+        columns:
+          - name: LOCATION_ID
+            description: ''
+            data_tests:
+              - unique
+              - not_null
+          - name: PLACEKEY
+            description: ''
+            data_tests:
+              - unique
+      - name: ORDER_DETAIL
+        columns:
+          - name: ORDER_ID
+            description: ''
+            data_tests:
+              - not_null
+              - relationships:
+                    to: source('tb_101', 'ORDER_HEADER')
+                    field: ORDER_ID
+          - name: PRICE
+            description: ''
+            data_tests:
+              - is_positive_amount
+          - name: UNIT_PRICE
+            description: ''
+            data_tests:
+              - is_positive_amount
+      - name: ORDER_HEADER
+        tests:
+          - dbt_expectations.expect_table_row_count_to_be_between:
+                min_value: 10
+        columns:
+          - name: ORDER_AMOUNT
+            description: ''
+            data_tests:
+              - dbt_utils.accepted_range:
+                    min_value: 0
+                    max_value: 10
+                    inclusive: True
+          - name: ORDER_TS
+            description: ''
+            data_tests:
+              - dbt_utils.expression_is_true:
+                    expression: '{{ column_name }} <= current_timestamp()'
+          - name: TRUCK_ID
+            description: ''
+            data_tests:
+              - relationships:
+                    to: source('tb_101', 'TRUCK')
+                    field: TRUCK_ID
