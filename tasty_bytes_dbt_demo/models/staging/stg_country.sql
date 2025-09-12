@@ -3,8 +3,15 @@
     schema='stg',
     unique_key=["Country_City_Key"],
     incremental_strategy='merge',
-    pre_hook=[ "{{ init_highwatermark('stg_country') }}" ],
-    post_hook=[ "{{ update_highwatermark('lcf.highwatermark','stg_country', 'raw.country', 'lastupdateddate') }}" ]
+    pre_hook=[ 
+            "{{ init_highwatermark('stg_country') }}", 
+            "{{auditlog_pre('stg_country')}}"
+        ],
+    post_hook=[ 
+       "{{ update_highwatermark('lcf.highwatermark','stg_country', 'raw.country', 'lastupdateddate') }}", 
+       "{{auditlog_post('stg_country')}}"
+       ]
+       
 ) }}
 
 WITH highwatermark AS (
