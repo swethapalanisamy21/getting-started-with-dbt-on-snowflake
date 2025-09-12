@@ -1,0 +1,9 @@
+version: 2
+models:
+  - name: raw_pos_country
+    tests:
+        - source_vs_target:
+            source_name: tb_101
+            source_table: COUNTRY
+            source_key: COUNTRY_ID
+            target_key: COUNTRY_ID
