@@ -2,8 +2,16 @@ version: 2
 models:
   - name: raw_pos_country
     tests:
-        - source_vs_target:
-            source_name: tb_101
-            source_table: COUNTRY
-            source_key: COUNTRY_ID
-            target_key: COUNTRY_ID
+      - source_vs_target:
+          source_name: tb_101
+          source_table: COUNTRY
+          source_key: COUNTRY_ID
+          target_key: COUNTRY_ID
+
+  - name: stg_country
+    tests:
+      - source_to_target_range:
+          source_key_list: ['COUNTRY_ID', 'CITY_ID']
+          source_timestamp: lastupdateddate
+          auditlog_table: lcf.auditlog
+          target_key: country_city_key

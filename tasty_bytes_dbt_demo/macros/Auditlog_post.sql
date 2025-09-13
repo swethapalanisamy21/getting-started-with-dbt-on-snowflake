@@ -1,6 +1,6 @@
-{% macro auditlog_post(model_name) %}
+{% macro auditlog_post(model_name,raw_table,date_column) %}
 
--- 🟢 auditlog_post started for model: {{ model_name }}
+-- 🟢 auditlog_post started for model: {{ model_name,raw_table,date_column }}
 
 -- Get the most recent LoadStartTime of current run from AuditLog
 {% set load_start_query %}
@@ -40,8 +40,8 @@
 -- Count total records from model within HighWatermark date range
 {% set total_count_query %}
     SELECT COUNT(*) AS cnt
-    FROM {{ this }}
-    WHERE actiondate BETWEEN TO_TIMESTAMP_NTZ('{{ hwm_start }}')
+    FROM {{ source('tb_101', raw_table) }}
+    WHERE {{ date_column }} BETWEEN TO_TIMESTAMP_NTZ('{{ hwm_start }}')
                          AND TO_TIMESTAMP_NTZ('{{ hwm_end }}')
 {% endset %}
 

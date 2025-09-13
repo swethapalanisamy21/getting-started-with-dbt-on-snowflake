@@ -1,23 +1,20 @@
 {% macro update_highwatermark(hw_table, stg_table, raw_table, date_column) %}
-
--- Calculate new_start_date as max date from raw_table
-{% set new_start_date_query %}
-    SELECT MAX({{ date_column }}) 
-    FROM tasty_bytes_dbt_db.raw.country
-{% endset %}
-
-{% set new_start_date = "(" ~ new_start_date_query | trim ~ ")" %}
+-- This macro updates the high watermark table for a given staging table.
 
 merge into {{ hw_table }} as h
 using (
     select 
         '{{ stg_table }}' as table_name,
-        {{ new_start_date }} as start_date
+        max({{ date_column }}) as start_date
+    from {{ source('tb_101', raw_table) }}
 ) as s
 on h.table_name = s.table_name
 
 when matched then update set
     start_date = s.start_date,
-    end_date   = TO_TIMESTAMP_NTZ('9999-12-31');
+    end_date   = to_timestamp_ntz('9999-12-31')
+
+when not matched then insert (table_name, start_date, end_date)
+values (s.table_name, s.start_date, to_timestamp_ntz('9999-12-31'));
 
 {% endmacro %}

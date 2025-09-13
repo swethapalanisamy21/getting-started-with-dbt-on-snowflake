@@ -8,8 +8,8 @@
             "{{auditlog_pre('stg_country')}}"
         ],
     post_hook=[ 
-       "{{ update_highwatermark('lcf.highwatermark','stg_country', 'raw.country', 'lastupdateddate') }}", 
-       "{{auditlog_post('stg_country')}}"
+       "{{ update_highwatermark('lcf.highwatermark','stg_country', 'COUNTRY', 'lastupdateddate') }}", 
+       "{{auditlog_post('stg_country','COUNTRY','lastupdateddate')}}"
        ]
        
 ) }}
