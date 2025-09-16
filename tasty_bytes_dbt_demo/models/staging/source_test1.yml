@@ -11,6 +11,7 @@ models:
   - name: stg_country
     tests:
       - source_to_target_range:
+          source_table: RAW.COUNTRY
           source_key_list: ['COUNTRY_ID', 'CITY_ID']
           source_timestamp: lastupdateddate
           auditlog_table: lcf.auditlog

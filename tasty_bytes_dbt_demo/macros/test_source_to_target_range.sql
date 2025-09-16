@@ -13,7 +13,7 @@ WITH last_run AS (
            startdate AS start_date,
            enddate   AS end_date
     FROM {{ auditlog_table }}
-    WHERE TableName = '{{ model.identifier }}'
+    WHERE TableName = '{{ model.name }}'
       AND Status = 'Completed'
     ORDER BY LoadEndTime DESC
     LIMIT 1
