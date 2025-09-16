@@ -24,10 +24,12 @@ sources:
             {%- endif %}
           {%- endfor %}
         {%- endif %}
+        {%- if table_data.columns %}
         columns:
           {%- for col, tests in table_data.columns.items() %}
           - name: {{ col }}
             description: ''
+            {%- if tests %}
             data_tests:
               {%- for test in tests %}
                 {%- if test is mapping %}
@@ -40,9 +42,10 @@ sources:
                 {%- else %}
               - {{ test }}
                 {%- endif %}
-
               {%- endfor %}
+            {%- endif %}
           {%- endfor %}
+        {%- endif %}
       {%- endfor %}
 {%- endfor %}
 {% endmacro %}
